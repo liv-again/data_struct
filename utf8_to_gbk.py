@@ -1,6 +1,6 @@
 import os
 import sys
-
+import chardet
 
 a = os.listdir(os.getcwd())
 for file in a:
