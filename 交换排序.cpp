@@ -7,30 +7,30 @@
 #define FALSE      0
 #define INFEASIBLE -1
 #define OVERFLOW   -2
-#define MAXSIZE 20         //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
+#define MAXSIZE 20         //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
 
-#define MAXSIZE 20         //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
+#define MAXSIZE 20         //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
 
-typedef int KeyType;          //¶¨Òå¹Ø¼ü×ÖÀàĞÍÎªÕûÊıÀàĞÍ
+typedef int KeyType;          //å®šä¹‰å…³é”®å­—ç±»å‹ä¸ºæ•´æ•°ç±»å‹
 typedef int Status;
 
-//¼ÇÂ¼ÀàĞÍ
+//è®°å½•ç±»å‹
 typedef struct  {
-        KeyType  key;             //Ñ§ºÅ£¨¼ÇÂ¼µÄ¹Ø¼ü×Ö£©
-        const char *name;     //ĞÕÃû
-        char sex;         //ĞÔ±ğ 
-        int  age;                     //ÄêÁä 
+        KeyType  key;             //å­¦å·ï¼ˆè®°å½•çš„å…³é”®å­—ï¼‰
+        const char *name;     //å§“å
+        char sex;         //æ€§åˆ« 
+        int  age;                     //å¹´é¾„ 
 } RecordType;                     
 
-//¼ÇÂ¼±íµÄÀàĞÍ
+//è®°å½•è¡¨çš„ç±»å‹
 typedef struct{
-          RecordType  r[MAXSIZE+1];      //r[0]ÏĞÖÃ»òÓÃ×÷¡°ÉÚ±ø¡±µ¥Ôª
-          int length;                                  //¼ÇÂ¼µÄ¸öÊı
+          RecordType  r[MAXSIZE+1];      //r[0]é—²ç½®æˆ–ç”¨ä½œâ€œå“¨å…µâ€å•å…ƒ
+          int length;                                  //è®°å½•çš„ä¸ªæ•°
 }RecordTable;                                     
 
-int ccount,mcount;         //È«¾Ö±äÁ¿£¬ccount¹Ø¼ü×Ö±È½Ï´ÎÊı£¬mcount¼ÇÂ¼ÒÆµ½´ÎÊı
+int ccount,mcount;         //å…¨å±€å˜é‡ï¼Œccountå…³é”®å­—æ¯”è¾ƒæ¬¡æ•°ï¼Œmcountè®°å½•ç§»åˆ°æ¬¡æ•°
 
-//´´½¨ 
+//åˆ›å»º 
 Status CreateRecordTable(RecordTable &RT)
 {
 	RecordType RT1[11]={56,"Zhang",'F',19,19,"Wang",'F',20,80,"Zhou",'F',19,5,"Huang",'M',20,
@@ -48,7 +48,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-//Êä³ö 
+//è¾“å‡º 
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
@@ -62,19 +62,19 @@ Status OutRecordTable(RecordTable RT)
 	return OK;
  } 
  
-//Ã°ÅİÅÅĞò
+//å†’æ³¡æ’åº
 Status BubbleSort(RecordTable &RT)
 {
 	int i,j,done;
 	 i=1;  done=1;
 	 ccount=mcount=0;
         while(i<=RT.length && done)  {
-            	//×î¶à½øĞĞlength´ÎÃ°Åİ£¬ÈçÃ»ÓĞ·¢Éú½»»»Ôò½áÊø
+            	//æœ€å¤šè¿›è¡Œlengthæ¬¡å†’æ³¡ï¼Œå¦‚æ²¡æœ‰å‘ç”Ÿäº¤æ¢åˆ™ç»“æŸ
    	        done=0;
    	        for(j=1; j<=RT.length-i; j++)
    	        {
-   	        	if (RT.r[j+1].key<RT.r[j].key) {   //Á½¸ö¼ÇÂ¼²»·ûºÏÅÅĞò¹æÔò
-      		      RT.r[0] = RT.r[j];	    //½»»»Á½¸ö¼ÇÂ¼Î»ÖÃ
+   	        	if (RT.r[j+1].key<RT.r[j].key) {   //ä¸¤ä¸ªè®°å½•ä¸ç¬¦åˆæ’åºè§„åˆ™
+      		      RT.r[0] = RT.r[j];	    //äº¤æ¢ä¸¤ä¸ªè®°å½•ä½ç½®
 	 	          RT.r[j] = RT.r[j+1];
           		  RT. r[j+1] = RT.r[0];
 		          done=1;
@@ -87,10 +87,10 @@ Status BubbleSort(RecordTable &RT)
          return OK;
  } 
  
- //¿ìËÙÅÅĞò
+ //å¿«é€Ÿæ’åº
 int ccount1=0;
 int mcount1=0;
-Status Partition (RecordTable &RT, int low, int high) {  //Ò»ÌË¿ìËÙÅÅĞòËã·¨
+Status Partition (RecordTable &RT, int low, int high) {  //ä¸€è¶Ÿå¿«é€Ÿæ’åºç®—æ³•
     int pivotkey,t;
     pivotkey = RT.r[low].key;
     while (low < high) 
@@ -107,7 +107,7 @@ Status Partition (RecordTable &RT, int low, int high) {  //Ò»ÌË¿ìËÙÅÅĞòËã·¨
 	  RT.r[high].key=t;	
 	  }
 	    
-	  //mcount1++;      //Á½¸ö¼ÇÂ¼»¥»»Î»ÖÃ
+	  //mcount1++;      //ä¸¤ä¸ªè®°å½•äº’æ¢ä½ç½®
 	  while (low < high  && RT.r[low].key <= pivotkey) 
 	  {
 	  	++low;
@@ -120,7 +120,7 @@ Status Partition (RecordTable &RT, int low, int high) {  //Ò»ÌË¿ìËÙÅÅĞòËã·¨
 	  RT.r[low].key=RT.r[high].key;
 	  RT.r[high].key=t;	
 	  }
-	  mcount1++;        //Á½¸ö¼ÇÂ¼»¥»»Î»ÖÃ
+	  mcount1++;        //ä¸¤ä¸ªè®°å½•äº’æ¢ä½ç½®
     }
       return low;
 }// Partition 
@@ -131,10 +131,10 @@ Status QuickSort(RecordTable &RT, int low, int high)
        if (low < high) { 
     	pivotloc = Partition(RT, low, high);
 		pcount++;
-    	printf("µÚ%d´Î¿ìËÙÅÅĞò\n",pcount);
+    	printf("ç¬¬%dæ¬¡å¿«é€Ÿæ’åº\n",pcount);
     	OutRecordTable(RT);
-	    QuickSort(RT, low, pivotloc-1);     //¶ÔµÍ¶Ë×Ó±íµİ¹éµ÷ÓÃ±¾º¯Êı
-    	QuickSort(RT, pivotloc+1, high);   //¶Ô¸ß¶Ë×Ó±íµİ¹éµ÷ÓÃ±¾º¯Êı
+	    QuickSort(RT, low, pivotloc-1);     //å¯¹ä½ç«¯å­è¡¨é€’å½’è°ƒç”¨æœ¬å‡½æ•°
+    	QuickSort(RT, pivotloc+1, high);   //å¯¹é«˜ç«¯å­è¡¨é€’å½’è°ƒç”¨æœ¬å‡½æ•°
      }
 	return OK;
  } 
@@ -142,17 +142,17 @@ Status QuickSort(RecordTable &RT, int low, int high)
  Status main()
  {
  	RecordTable RT,Rt;
- 	printf("Ô­Ê¼Êı¾İ\n"); 
+ 	printf("åŸå§‹æ•°æ®\n"); 
 	CreateRecordTable(RT);
 	OutRecordTable(RT);
 	BubbleSort(RT);
-	printf("Ã°ÅİÅÅĞòºó\n");
+	printf("å†’æ³¡æ’åºå\n");
 	OutRecordTable(RT);
-	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d   ¼ÇÂ¼±È½Ï´ÎÊı %d\n",ccount,mcount);
+	printf("å…³é”®å­—æ¯”è¾ƒæ¬¡æ•° %d   è®°å½•æ¯”è¾ƒæ¬¡æ•° %d\n",ccount,mcount);
 	CreateRecordTable(Rt);
-	printf("¿ìËÙÅÅĞòºó\n");
+	printf("å¿«é€Ÿæ’åºå\n");
 	QuickSort(Rt,1,Rt.length);
 	//OutRecordTable(Rt);
-	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d   ¼ÇÂ¼±È½Ï´ÎÊı %d\n",ccount1,mcount1);
+	printf("å…³é”®å­—æ¯”è¾ƒæ¬¡æ•° %d   è®°å½•æ¯”è¾ƒæ¬¡æ•° %d\n",ccount1,mcount1);
 	return OK;
  }
