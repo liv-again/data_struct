@@ -44,11 +44,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-<<<<<<< HEAD
 // 输出 
-=======
-// ��� 
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
