@@ -11,7 +11,7 @@
 
 typedef int Status;
 typedef int  KeyType;          //定义关键字类型为整数类型
-
+// git test 
 //记录类型
 typedef struct  {
         KeyType  key;             //学号（记录的关键字）
