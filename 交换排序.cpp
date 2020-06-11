@@ -48,11 +48,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-<<<<<<< HEAD
 //输出 
-=======
-//��� 
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
@@ -66,32 +62,19 @@ Status OutRecordTable(RecordTable RT)
 	return OK;
  } 
  
-<<<<<<< HEAD
 //冒泡排序
-=======
-//ð������
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status BubbleSort(RecordTable &RT)
 {
 	int i,j,done;
 	 i=1;  done=1;
 	 ccount=mcount=0;
         while(i<=RT.length && done)  {
-<<<<<<< HEAD
             	//最多进行length次冒泡，如没有发生交换则结束
    	        done=0;
    	        for(j=1; j<=RT.length-i; j++)
    	        {
    	        	if (RT.r[j+1].key<RT.r[j].key) {   //两个记录不符合排序规则
       		      RT.r[0] = RT.r[j];	    //交换两个记录位置
-=======
-            	//������length��ð�ݣ���û�з������������
-   	        done=0;
-   	        for(j=1; j<=RT.length-i; j++)
-   	        {
-   	        	if (RT.r[j+1].key<RT.r[j].key) {   //������¼�������������
-      		      RT.r[0] = RT.r[j];	    //����������¼λ��
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 	 	          RT.r[j] = RT.r[j+1];
           		  RT. r[j+1] = RT.r[0];
 		          done=1;
@@ -104,17 +87,10 @@ Status BubbleSort(RecordTable &RT)
          return OK;
  } 
  
-<<<<<<< HEAD
  //快速排序
 int ccount1=0;
 int mcount1=0;
 Status Partition (RecordTable &RT, int low, int high) {  //一趟快速排序算法
-=======
- //��������
-int ccount1=0;
-int mcount1=0;
-Status Partition (RecordTable &RT, int low, int high) {  //һ�˿��������㷨
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
     int pivotkey,t;
     pivotkey = RT.r[low].key;
     while (low < high) 
@@ -131,11 +107,7 @@ Status Partition (RecordTable &RT, int low, int high) {  //һ�˿�����
 	  RT.r[high].key=t;	
 	  }
 	    
-<<<<<<< HEAD
 	  //mcount1++;      //两个记录互换位置
-=======
-	  //mcount1++;      //������¼����λ��
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 	  while (low < high  && RT.r[low].key <= pivotkey) 
 	  {
 	  	++low;
@@ -148,11 +120,7 @@ Status Partition (RecordTable &RT, int low, int high) {  //һ�˿�����
 	  RT.r[low].key=RT.r[high].key;
 	  RT.r[high].key=t;	
 	  }
-<<<<<<< HEAD
 	  mcount1++;        //两个记录互换位置
-=======
-	  mcount1++;        //������¼����λ��
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
     }
       return low;
 }// Partition 
@@ -163,17 +131,10 @@ Status QuickSort(RecordTable &RT, int low, int high)
        if (low < high) { 
     	pivotloc = Partition(RT, low, high);
 		pcount++;
-<<<<<<< HEAD
     	printf("第%d次快速排序\n",pcount);
     	OutRecordTable(RT);
 	    QuickSort(RT, low, pivotloc-1);     //对低端子表递归调用本函数
     	QuickSort(RT, pivotloc+1, high);   //对高端子表递归调用本函数
-=======
-    	printf("��%d�ο�������\n",pcount);
-    	OutRecordTable(RT);
-	    QuickSort(RT, low, pivotloc-1);     //�ԵͶ��ӱ��ݹ���ñ�����
-    	QuickSort(RT, pivotloc+1, high);   //�Ը߶��ӱ��ݹ���ñ�����
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
      }
 	return OK;
  } 
@@ -181,7 +142,6 @@ Status QuickSort(RecordTable &RT, int low, int high)
  Status main()
  {
  	RecordTable RT,Rt;
-<<<<<<< HEAD
  	printf("原始数据\n"); 
 	CreateRecordTable(RT);
 	OutRecordTable(RT);
@@ -194,19 +154,5 @@ Status QuickSort(RecordTable &RT, int low, int high)
 	QuickSort(Rt,1,Rt.length);
 	//OutRecordTable(Rt);
 	printf("关键字比较次数 %d   记录比较次数 %d\n",ccount1,mcount1);
-=======
- 	printf("ԭʼ����\n"); 
-	CreateRecordTable(RT);
-	OutRecordTable(RT);
-	BubbleSort(RT);
-	printf("ð�������\n");
-	OutRecordTable(RT);
-	printf("�ؼ��ֱȽϴ��� %d   ��¼�Ƚϴ��� %d\n",ccount,mcount);
-	CreateRecordTable(Rt);
-	printf("���������\n");
-	QuickSort(Rt,1,Rt.length);
-	//OutRecordTable(Rt);
-	printf("�ؼ��ֱȽϴ��� %d   ��¼�Ƚϴ��� %d\n",ccount1,mcount1);
->>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 	return OK;
  }
