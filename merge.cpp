@@ -105,6 +105,7 @@ void OutRadixTable(RadixTable LT)
         while (index)
         {
             printf("{%d,%d,%s,%s}->", index->rc.age, index->rc.key, index->rc.name, index->rc.sex);
+            index = index->next;
         }
         printf("null\n");
     }
@@ -125,6 +126,7 @@ void OutRecordTable(RecordTable RT)
 Status RadixSort(RecordTable &RT, int n)
 { //n为最大关键字的位数
     RadixTable LT;
+    LT.length=10;
     for (int k = 1; k <= n; k++)
     { //执行n次关键字的"分组"与"收集"
         for (int i = 0; i < RADIX; i++)
@@ -229,5 +231,7 @@ int main()
     MergeSort(RT1,1,11);
     OutRecordTable(RT1);
     CreateRecordTable(RT1);
+    RadixSort(RT1,2);
+    //OutRecordTable(RT1);
     return 0;
 }
