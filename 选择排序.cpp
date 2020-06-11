@@ -7,26 +7,26 @@
 #define FALSE      0
 #define INFEASIBLE -1
 #define OVERFLOW   -2
-#define MAXSIZE 20         //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
+#define MAXSIZE 20         //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
 
 typedef int Status;
-typedef int  KeyType;          //å®šä¹‰å…³é”®å­—ç±»å‹ä¸ºæ•´æ•°ç±»å‹
+typedef int  KeyType;          //¶¨Òå¹Ø¼ü×ÖÀàĞÍÎªÕûÊıÀàĞÍ
 
-//è®°å½•ç±»å‹
+//¼ÇÂ¼ÀàĞÍ
 typedef struct  {
-        KeyType  key;             //å­¦å·ï¼ˆè®°å½•çš„å…³é”®å­—ï¼‰
-        const char *name;     //å§“å
-        const char *sex;         //æ€§åˆ« 
-        int  age;                     //å¹´é¾„ 
+        KeyType  key;             //Ñ§ºÅ£¨¼ÇÂ¼µÄ¹Ø¼ü×Ö£©
+        const char *name;     //ĞÕÃû
+        const char *sex;         //ĞÔ±ğ 
+        int  age;                     //ÄêÁä 
 } RecordType;                     
 
-//è®°å½•è¡¨çš„ç±»å‹
+//¼ÇÂ¼±íµÄÀàĞÍ
 typedef struct{
-          RecordType  r[MAXSIZE+1];      //r[0]é—²ç½®æˆ–ç”¨ä½œâ€œå“¨å…µâ€å•å…ƒ
-          int length;                                  //è®°å½•çš„ä¸ªæ•°
+          RecordType  r[MAXSIZE+1];      //r[0]ÏĞÖÃ»òÓÃ×÷¡°ÉÚ±ø¡±µ¥Ôª
+          int length;                                  //¼ÇÂ¼µÄ¸öÊı
 }RecordTable;   
 
-//åˆ›å»º 
+//´´½¨ 
 Status CreateRecordTable(RecordTable &RT)
 {
 	RecordType RT1[11]={56,"Zhang",'F',19,19,"Wang",'F',20,80,"Zhou",'F',19,5,"Huang",'M',20,
@@ -44,7 +44,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-// è¾“å‡º 
+// Êä³ö 
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
