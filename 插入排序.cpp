@@ -45,7 +45,11 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
+<<<<<<< HEAD
 // 输出 
+=======
+// ��� 
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
@@ -59,7 +63,11 @@ Status OutRecordTable(RecordTable RT)
 	return OK;
  } 
  
+<<<<<<< HEAD
 //插入排序
+=======
+//��������
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status InsertSort(RecordTable &RT) 
 {
  	int i,j;
@@ -79,7 +87,11 @@ Status InsertSort(RecordTable &RT)
 	 return OK;
 }
 
+<<<<<<< HEAD
 //希尔排序
+=======
+//ϣ������
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 Status ShellSort(RecordTable &RT)
 {
 	int d,i,j;
@@ -89,6 +101,7 @@ Status ShellSort(RecordTable &RT)
         while(d>=1) {
           	for(i=d+1; i<=RT.length; i++)  
 			{  
+<<<<<<< HEAD
 	        //从第d+1个元素开始,将所有元素有序插入相应分组中
 	        RT.r[0]=RT. r[i];      //保存第i个元素
       	    j=i-d;                    //向前找插入位置
@@ -96,11 +109,24 @@ Status ShellSort(RecordTable &RT)
 			{   //找插入位置并后移
       		  RT.r[j+d]=RT.r[j];      //后移
 		      j=j-d;   		 //继续向前查找
+=======
+	        //�ӵ�d+1��Ԫ�ؿ�ʼ,������Ԫ�����������Ӧ������
+	        RT.r[0]=RT. r[i];      //�����i��Ԫ��
+      	    j=i-d;                    //��ǰ�Ҳ���λ��
+      	    while( RT.r[0].key < RT.r[j].key && j>0) 
+			{   //�Ҳ���λ�ò�����
+      		  RT.r[j+d]=RT.r[j];      //����
+		      j=j-d;   		 //������ǰ����
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 		      mcount++;
 		      ccount++;
 	        }//while
 	        if(j>0)ccount++;
+<<<<<<< HEAD
       	    RT.r[j+d]=RT.r[0];        //插入第i个元素
+=======
+      	    RT.r[j+d]=RT.r[0];        //�����i��Ԫ��
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
     	    }// for
     	    printf("d=%d\n",d);
     	    OutRecordTable(RT);
@@ -112,6 +138,7 @@ Status ShellSort(RecordTable &RT)
 Status main()
 {
 	RecordTable RT,Rt;
+<<<<<<< HEAD
 	printf("原始数据\n"); 
 	CreateRecordTable(RT);
 	OutRecordTable(RT);
@@ -124,5 +151,19 @@ Status main()
 	ShellSort(Rt);
 	//OutRecordTable(Rt);
 	printf("关键字比较次数 %d   记录比较次数 %d\n",ccount,mcount);
+=======
+	printf("ԭʼ����\n"); 
+	CreateRecordTable(RT);
+	OutRecordTable(RT);
+	InsertSort(RT);
+	printf("�򵥲�������\n"); 
+	OutRecordTable(RT);
+	printf("�ؼ��ֱȽϴ��� %d   ��¼�Ƚϴ��� %d\n",ccount,mcount);
+	CreateRecordTable(Rt);
+	printf("ϣ�������\n");
+	ShellSort(Rt);
+	//OutRecordTable(Rt);
+	printf("�ؼ��ֱȽϴ��� %d   ��¼�Ƚϴ��� %d\n",ccount,mcount);
+>>>>>>> f57c84a00ddb7c1690ff73befa01771038786a85
 	return OK;
  } 
