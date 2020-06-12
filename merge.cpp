@@ -7,84 +7,84 @@
 #define FALSE 0
 #define INFEASIBLE -1
 #define OVERFLOW -2
-#define MAXSIZE 20 //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
+#define MAXSIZE 20 //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
 
-typedef int KeyType; //å®šä¹‰å…³é”®å­—ç±»å‹ä¸ºæ•´æ•°ç±»å‹
-#define RADIX 10     //åŸºæ•°æ’åºæ—¶çš„åŸºæ•°
+typedef int KeyType; //¶¨Òå¹Ø¼ü×ÖÀàĞÍÎªÕûÊıÀàĞÍ
+#define RADIX 10     //»ùÊıÅÅĞòÊ±µÄ»ùÊı
 typedef int Status;
-//è®°å½•ç±»å‹
+//¼ÇÂ¼ÀàĞÍ
 
 typedef struct
 {
 
-    KeyType key; //å­¦å·ï¼ˆè®°å½•çš„å…³é”®å­—ï¼‰
+    KeyType key; //Ñ§ºÅ£¨¼ÇÂ¼µÄ¹Ø¼ü×Ö£©
 
-    const char *name; //å§“å
+    const char *name; //ĞÕÃû
 
-    const char *sex; //æ€§åˆ«
+    const char *sex; //ĞÔ±ğ
 
-    int age; //å¹´é¾„
+    int age; //ÄêÁä
 
 } RecordType;
 
-//è®°å½•è¡¨çš„ç±»å‹
+//¼ÇÂ¼±íµÄÀàĞÍ
 
 typedef struct
 {
 
-    RecordType r[MAXSIZE + 1]; //r[0]é—²ç½®æˆ–ç”¨ä½œâ€œå“¨å…µâ€å•å…ƒ
+    RecordType r[MAXSIZE + 1]; //r[0]ÏĞÖÃ»òÓÃ×÷¡°ÉÚ±ø¡±µ¥Ôª
 
-    int length; //è®°å½•çš„ä¸ªæ•°
+    int length; //¼ÇÂ¼µÄ¸öÊı
 
 } RecordTable;
 
-//åŸºæ•°æ’åºæ—¶åˆ†ç»„çš„å•é“¾è¡¨ç»“ç‚¹ï¼ˆè®°å½•ï¼‰ç±»å‹
+//»ùÊıÅÅĞòÊ±·Ö×éµÄµ¥Á´±í½áµã£¨¼ÇÂ¼£©ÀàĞÍ
 
 typedef struct LNode
 {
 
     RecordType rc;
 
-    LNode *next; //æŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹çš„æŒ‡é’ˆï¼ˆè¡¨æ’åºç”¨ï¼‰
+    LNode *next; //Ö¸ÏòÏÂÒ»¸ö½áµãµÄÖ¸Õë£¨±íÅÅĞòÓÃ£©
 
 } LNode;
 
-//åŸºæ•°æ’åºæ—¶åˆ†ç»„çš„é“¾å¼è®°å½•è¡¨ç±»å‹
+//»ùÊıÅÅĞòÊ±·Ö×éµÄÁ´Ê½¼ÇÂ¼±íÀàĞÍ
 
 typedef struct
 {
 
-    LNode *head[RADIX]; //å•é“¾è¡¨å¤´æŒ‡é’ˆæ•°ç»„
+    LNode *head[RADIX]; //µ¥Á´±íÍ·Ö¸ÕëÊı×é
 
-    int length; //åŸºæ•°æ’åºçš„è®°å½•ä¸ªæ•°
+    int length; //»ùÊıÅÅĞòµÄ¼ÇÂ¼¸öÊı
 
 } RadixTable;
 
 Status Merge(RecordTable &RT, int start, int mid, int end)
 {
-    //å°†æœ‰åºè¡¨RT.r[start..mid]å’ŒRT.r[mid+1..end]å½’å¹¶ä¸ºæœ‰åºè¡¨RT.r[start..end]
+    //½«ÓĞĞò±íRT.r[start..mid]ºÍRT.r[mid+1..end]¹é²¢ÎªÓĞĞò±íRT.r[start..end]
     int k = start;
     int i = start;
     int j = mid + 1;
     RecordTable RT1;
-    //å°†RTä¸­è®°å½•æŒ‰å…³é”®å­—ç”±å°åˆ°å¤§å½’å¹¶åˆ°ä¸´æ—¶è¡¨RT1ä¸­
+    //½«RTÖĞ¼ÇÂ¼°´¹Ø¼ü×ÖÓÉĞ¡µ½´ó¹é²¢µ½ÁÙÊ±±íRT1ÖĞ
     while (i <= mid && j <= end)
         if (RT.r[i].key <= RT.r[j].key)
             RT1.r[k++] = RT.r[i++];
         else
             RT1.r[k++] = RT.r[j++];
     while (i <= mid)
-        RT1.r[k++] = RT.r[i++]; //å°†å‰©ä½™RT.r[i..m]å¤åˆ¶åˆ°RT1
+        RT1.r[k++] = RT.r[i++]; //½«Ê£ÓàRT.r[i..m]¸´ÖÆµ½RT1
     while (j <= end)
-        RT1.r[k++] = RT.r[j++]; //å°†å‰©ä½™RT.r[j..n]å¤åˆ¶åˆ°RT1
+        RT1.r[k++] = RT.r[j++]; //½«Ê£ÓàRT.r[j..n]¸´ÖÆµ½RT1
     for (j = start; j <= end; j++)
-        RT.r[j] = RT1.r[j]; //å°†RT1å¤åˆ¶å›RT
+        RT.r[j] = RT1.r[j]; //½«RT1¸´ÖÆ»ØRT
     return OK;
 }
 
 Status MergeSort(RecordTable &RT, int start, int end)
 {
-    //å°†RT.r[start..end]æ‹†æˆä¸¤ä¸ªå­—è¡¨ï¼Œé‡‡ç”¨é€’å½’æ–¹å¼å½’å¹¶æ’åºä¸ºRT.r[s..t]
+    //½«RT.r[start..end]²ğ³ÉÁ½¸ö×Ö±í£¬²ÉÓÃµİ¹é·½Ê½¹é²¢ÅÅĞòÎªRT.r[s..t]
     if (start < end)
     {
         int mid = (start + end) / 2;
@@ -124,25 +124,25 @@ void OutRecordTable(RecordTable RT)
 }
 
 Status RadixSort(RecordTable &RT, int n)
-{ //nä¸ºæœ€å¤§å…³é”®å­—çš„ä½æ•°
+{ //nÎª×î´ó¹Ø¼ü×ÖµÄÎ»Êı
     RadixTable LT;
     LT.length=10;
     for (int k = 1; k <= n; k++)
-    { //æ‰§è¡Œnæ¬¡å…³é”®å­—çš„"åˆ†ç»„"ä¸"æ”¶é›†"
+    { //Ö´ĞĞn´Î¹Ø¼ü×ÖµÄ"·Ö×é"Óë"ÊÕ¼¯"
         for (int i = 0; i < RADIX; i++)
-            LT.head[i] = NULL; //æŒ‡é’ˆæ•°ç»„åˆå§‹åŒ–
-        //1. åˆ†ç»„-å°†RTä¸­çš„è®°å½•æ’å…¥åˆ°ç›¸åº”çš„å•é“¾è¡¨ä¸­
+            LT.head[i] = NULL; //Ö¸ÕëÊı×é³õÊ¼»¯
+        //1. ·Ö×é-½«RTÖĞµÄ¼ÇÂ¼²åÈëµ½ÏàÓ¦µÄµ¥Á´±íÖĞ
         for (int i = 1; i <= RT.length; i++)
         {
             int key = RT.r[i].key;
             for (int j = 1; j < k; j++)
-                key = key / RADIX; //è·å–å…³é”®å­—å€’æ•°iä½çš„æ•°å€¼
+                key = key / RADIX; //»ñÈ¡¹Ø¼ü×Öµ¹ÊıiÎ»µÄÊıÖµ
             key = key % RADIX;
-            LNode *s = (LNode *)malloc(sizeof(LNode)); //ç”³è¯·ä¸€ä¸ªå•é“¾è¡¨æ–°ç»“ç‚¹s
+            LNode *s = (LNode *)malloc(sizeof(LNode)); //ÉêÇëÒ»¸öµ¥Á´±íĞÂ½áµãs
             s->rc = RT.r[i];
             s->next = NULL;
             if (!LT.head[key])
-                LT.head[key] = s; //ç”¨å°¾æ’æ³•å°†sç»“ç‚¹æ’å…¥æŒ‡å®šå•é“¾è¡¨
+                LT.head[key] = s; //ÓÃÎ²²å·¨½«s½áµã²åÈëÖ¸¶¨µ¥Á´±í
             else
             {
                 LNode *r = LT.head[key];
@@ -153,23 +153,23 @@ Status RadixSort(RecordTable &RT, int n)
                 r->next = s;
             }
         }
-        printf("ç¬¬%dæ¬¡åˆ†ç»„:\n", k);
-        OutRadixTable(LT); //è¾“å‡ºåŸºæ•°æ’åºçš„å„å•é“¾è¡¨æ•°æ®
-        //2. æ”¶é›†-ä¸€æ¬¡å°†å„å•é“¾è¡¨ä¸­çš„è®°å½•å†™å›RT
+        printf("µÚ%d´Î·Ö×é:\n", k);
+        OutRadixTable(LT); //Êä³ö»ùÊıÅÅĞòµÄ¸÷µ¥Á´±íÊı¾İ
+        //2. ÊÕ¼¯-Ò»´Î½«¸÷µ¥Á´±íÖĞµÄ¼ÇÂ¼Ğ´»ØRT
         int j = 1;
         for (int i = 0; i < RADIX; i++)
         {
             LNode *r = LT.head[i];
             while (r)
             {
-                RT.r[j++] = r->rc; //ç»“ç‚¹è®°å½•å†™å›RT
+                RT.r[j++] = r->rc; //½áµã¼ÇÂ¼Ğ´»ØRT
                 LNode *s = r;
                 r = r->next;
-                free(s); //è®°å½•å†™å›åé‡Šæ”¾ç»“ç‚¹ç©ºé—´
+                free(s); //¼ÇÂ¼Ğ´»ØºóÊÍ·Å½áµã¿Õ¼ä
             }
         }
-        printf("ç¬¬%dæ¬¡æ”¶é›†:\n", k);
-        OutRecordTable(RT); //è¾“å‡ºæ”¶é›†çš„è®°å½•è¡¨å†…å®¹
+        printf("µÚ%d´ÎÊÕ¼¯:\n", k);
+        OutRecordTable(RT); //Êä³öÊÕ¼¯µÄ¼ÇÂ¼±íÄÚÈİ
     }
     return OK;
 }

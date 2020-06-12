@@ -7,27 +7,27 @@
 #define FALSE      0
 #define INFEASIBLE -1
 #define OVERFLOW   -2
-#define MAXSIZE 20         //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
+#define MAXSIZE 20         //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
 
 typedef int Status;
-typedef int  KeyType;          //å®šä¹‰å…³é”®å­—ç±»å‹ä¸ºæ•´æ•°ç±»å‹
+typedef int  KeyType;          //¶¨Òå¹Ø¼ü×ÖÀàĞÍÎªÕûÊıÀàĞÍ
 // git test 
-//è®°å½•ç±»å‹
+//¼ÇÂ¼ÀàĞÍ
 typedef struct  {
-        KeyType  key;             //å­¦å·ï¼ˆè®°å½•çš„å…³é”®å­—ï¼‰
-        const char *name;     //å§“å
-        char sex;         //æ€§åˆ« 
-        int  age;                     //å¹´é¾„ 
+        KeyType  key;             //Ñ§ºÅ£¨¼ÇÂ¼µÄ¹Ø¼ü×Ö£©
+        const char *name;     //ĞÕÃû
+        char sex;         //ĞÔ±ğ 
+        int  age;                     //ÄêÁä 
 } RecordType;                     
 
-//è®°å½•è¡¨çš„ç±»å‹
+//¼ÇÂ¼±íµÄÀàĞÍ
 typedef struct{
-          RecordType  r[MAXSIZE+1];      //r[0]é—²ç½®æˆ–ç”¨ä½œâ€œå“¨å…µâ€å•å…ƒ
-          int length;                                  //è®°å½•çš„ä¸ªæ•°
+          RecordType  r[MAXSIZE+1];      //r[0]ÏĞÖÃ»òÓÃ×÷¡°ÉÚ±ø¡±µ¥Ôª
+          int length;                                  //¼ÇÂ¼µÄ¸öÊı
 }RecordTable;          
 
 int ccount,mcount;
-//åˆ›å»º
+//´´½¨
 Status CreateRecordTable(RecordTable &RT)  
 {
 	RecordType RT1[11]={56,"Zhang",'F',19,19,"Wang",'F',20,80,"Zhou",'F',19,5,"Huang",'M',20,
@@ -45,7 +45,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-// è¾“å‡º 
+// Êä³ö 
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
@@ -59,7 +59,7 @@ Status OutRecordTable(RecordTable RT)
 	return OK;
  } 
  
-//æ’å…¥æ’åº
+//²åÈëÅÅĞò
 Status InsertSort(RecordTable &RT) 
 {
  	int i,j;
@@ -79,7 +79,7 @@ Status InsertSort(RecordTable &RT)
 	 return OK;
 }
 
-//å¸Œå°”æ’åº
+//Ï£¶ûÅÅĞò
 Status ShellSort(RecordTable &RT)
 {
 	int d,i,j;
@@ -89,18 +89,18 @@ Status ShellSort(RecordTable &RT)
         while(d>=1) {
           	for(i=d+1; i<=RT.length; i++)  
 			{  
-	        //ä»ç¬¬d+1ä¸ªå…ƒç´ å¼€å§‹,å°†æ‰€æœ‰å…ƒç´ æœ‰åºæ’å…¥ç›¸åº”åˆ†ç»„ä¸­
-	        RT.r[0]=RT. r[i];      //ä¿å­˜ç¬¬iä¸ªå…ƒç´ 
-      	    j=i-d;                    //å‘å‰æ‰¾æ’å…¥ä½ç½®
+	        //´ÓµÚd+1¸öÔªËØ¿ªÊ¼,½«ËùÓĞÔªËØÓĞĞò²åÈëÏàÓ¦·Ö×éÖĞ
+	        RT.r[0]=RT. r[i];      //±£´æµÚi¸öÔªËØ
+      	    j=i-d;                    //ÏòÇ°ÕÒ²åÈëÎ»ÖÃ
       	    while( RT.r[0].key < RT.r[j].key && j>0) 
-			{   //æ‰¾æ’å…¥ä½ç½®å¹¶åç§»
-      		  RT.r[j+d]=RT.r[j];      //åç§»
-		      j=j-d;   		 //ç»§ç»­å‘å‰æŸ¥æ‰¾
+			{   //ÕÒ²åÈëÎ»ÖÃ²¢ºóÒÆ
+      		  RT.r[j+d]=RT.r[j];      //ºóÒÆ
+		      j=j-d;   		 //¼ÌĞøÏòÇ°²éÕÒ
 		      mcount++;
 		      ccount++;
 	        }//while
 	        if(j>0)ccount++;
-      	    RT.r[j+d]=RT.r[0];        //æ’å…¥ç¬¬iä¸ªå…ƒç´ 
+      	    RT.r[j+d]=RT.r[0];        //²åÈëµÚi¸öÔªËØ
     	    }// for
     	    printf("d=%d\n",d);
     	    OutRecordTable(RT);
@@ -112,17 +112,17 @@ Status ShellSort(RecordTable &RT)
 Status main()
 {
 	RecordTable RT,Rt;
-	printf("åŸå§‹æ•°æ®\n"); 
+	printf("Ô­Ê¼Êı¾İ\n"); 
 	CreateRecordTable(RT);
 	OutRecordTable(RT);
 	InsertSort(RT);
-	printf("ç®€å•æ’å…¥æ’åº\n"); 
+	printf("¼òµ¥²åÈëÅÅĞò\n"); 
 	OutRecordTable(RT);
-	printf("å…³é”®å­—æ¯”è¾ƒæ¬¡æ•° %d   è®°å½•æ¯”è¾ƒæ¬¡æ•° %d\n",ccount,mcount);
+	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d   ¼ÇÂ¼±È½Ï´ÎÊı %d\n",ccount,mcount);
 	CreateRecordTable(Rt);
-	printf("å¸Œå°”æ’åºå\n");
+	printf("Ï£¶ûÅÅĞòºó\n");
 	ShellSort(Rt);
 	//OutRecordTable(Rt);
-	printf("å…³é”®å­—æ¯”è¾ƒæ¬¡æ•° %d   è®°å½•æ¯”è¾ƒæ¬¡æ•° %d\n",ccount,mcount);
+	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d   ¼ÇÂ¼±È½Ï´ÎÊı %d\n",ccount,mcount);
 	return OK;
  } 

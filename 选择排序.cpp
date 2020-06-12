@@ -7,26 +7,26 @@
 #define FALSE      0
 #define INFEASIBLE -1
 #define OVERFLOW   -2
-#define MAXSIZE 20         //æ–‡ä»¶ä¸­è®°å½•ä¸ªæ•°çš„æœ€å¤§å€¼
+#define MAXSIZE 20         //ÎÄ¼şÖĞ¼ÇÂ¼¸öÊıµÄ×î´óÖµ
 
 typedef int Status;
-typedef int  KeyType;          //å®šä¹‰å…³é”®å­—ç±»å‹ä¸ºæ•´æ•°ç±»å‹
+typedef int  KeyType;          //¶¨Òå¹Ø¼ü×ÖÀàĞÍÎªÕûÊıÀàĞÍ
 
-//è®°å½•ç±»å‹
+//¼ÇÂ¼ÀàĞÍ
 typedef struct  {
-        KeyType  key;             //å­¦å·ï¼ˆè®°å½•çš„å…³é”®å­—ï¼‰
-        const char *name;     //å§“å
-        const char *sex;         //æ€§åˆ« 
-        int  age;                     //å¹´é¾„ 
+        KeyType  key;             //Ñ§ºÅ£¨¼ÇÂ¼µÄ¹Ø¼ü×Ö£©
+        const char *name;     //ĞÕÃû
+        char sex;         //ĞÔ±ğ 
+        int  age;                     //ÄêÁä 
 } RecordType;                     
 
-//è®°å½•è¡¨çš„ç±»å‹
+//¼ÇÂ¼±íµÄÀàĞÍ
 typedef struct{
-          RecordType  r[MAXSIZE+1];      //r[0]é—²ç½®æˆ–ç”¨ä½œâ€œå“¨å…µâ€å•å…ƒ
-          int length;                                  //è®°å½•çš„ä¸ªæ•°
+          RecordType  r[MAXSIZE+1];      //r[0]ÏĞÖÃ»òÓÃ×÷¡°ÉÚ±ø¡±µ¥Ôª
+          int length;                                  //¼ÇÂ¼µÄ¸öÊı
 }RecordTable;   
 
-//åˆ›å»º 
+//´´½¨ 
 Status CreateRecordTable(RecordTable &RT)
 {
 	RecordType RT1[11]={56,"Zhang",'F',19,19,"Wang",'F',20,80,"Zhou",'F',19,5,"Huang",'M',20,
@@ -44,7 +44,7 @@ Status CreateRecordTable(RecordTable &RT)
 	return OK;
 }
 
-// è¾“å‡º 
+// Êä³ö 
 Status OutRecordTable(RecordTable RT)
 {
 	int i;
@@ -57,3 +57,94 @@ Status OutRecordTable(RecordTable RT)
 	}
 	return OK;
  } 
+
+int ccount,mcount;
+//Ñ¡ÔñÅÅĞò
+Status SelectSort(RecordTable &RT)
+{
+	int i,j,min;
+	ccount=mcount=0;
+	for(i=1;i<=RT.length;i++)
+	{
+		min=i;
+		for(j=i+1;j<=RT.length;j++)
+		{
+			if(RT.r[j].key<RT.r[min].key) min=j;
+			ccount++;
+		}
+		if(min!=i)
+		{
+			RT.r[0]=RT.r[i];
+            RT.r[i]=RT.r[min];
+            RT.r[min]=RT.r[0];
+			mcount++;
+		}
+	}
+	return OK; 
+ } 
+ 
+ //¶ÑÅÅĞò
+ int ccount1=1;
+ int mcount1=0;
+ Status HeapAdjust(RecordTable &H, int i, int m) { 
+       //¸ù¾İ´ó¶¥¶ÑÌØÕ÷£¬µ÷ÕûH.r[i]ÔÚH.r[i..m]ÖĞµÄÎ»ÖÃ
+       int j;
+       H.r[0]=H.r[i];       //±£´æH.r[i]
+       for(j=2*i; j<=m; j*=2) {  //¸ù¾İ¶ş²æÊ÷½á¹¹ÕÒ½áµãiµÄ×ó(2*i)ÓÒ(2*i+1)º¢×Ó½áµã
+              if (j<m && H.r[j].key<H.r[j+1].key)
+			  {
+			  	j++;  //±È½Ï×óÓÒº¢×ÓkeyµÄ´óĞ¡£¬È¡´óÕßÓë½áµãi±È½Ï
+			  } 
+			  /*if(j<m)*/ ccount1++;
+              if (H.r[0].key>=H.r[j].key)  
+			  {
+			  	break;  // Èô½áµãi²»Ğ¡ÓÚº¢×Ó½áµã£¬Ôò½áÊøÑ­»·
+			  }
+			  ccount1++;
+              H.r[i]=H.r[j];   i=j;		  //½«º¢×Ó½áµãµÄÖµÓëi½áµãµÄÖµ»¥»»
+              mcount1++;
+        } 
+        if(H.r[i].key!=H.r[0].key)
+		{
+		  H.r[i]=H.r[0];  //»Ö¸´i½áµãµÄÖµ 
+	    }
+        return OK;
+}
+
+Status HeapSort(RecordTable &H) 
+{
+	//¶Ô´ıÅÅĞò±íH½øĞĞ¶ÑÅÅĞò
+	RecordType temp;
+	int i;
+    for(i=H.length/2; i>0; i--) 
+           HeapAdjust(H, i, H.length);     //½«±íH½¨³ÉÒ»¸ö´ó¶¥¶Ñ
+           printf("½¨Á¢´ó¶¥¶Ñºó\n");
+           OutRecordTable(H);
+    for(i=H.length; i>1; i--){
+			temp=H.r[1];
+			H.r[1]=H.r[i];
+			H.r[i]=temp;    //½«¶Ñ¶¥¼ÇÂ¼Óë´ıÅÅĞòµÄ×îºóÒ»¸ö¼ÇÂ¼»¥»»
+			mcount1++; 
+            HeapAdjust(H,1,i-1);	//½«H.r[1..i-1]ÖØĞÂµ÷ÕûÎª´ó¶¥¶Ñ
+            printf("µÚ%d´Îµ÷Õû¶Ñ¶¥ÔªËØ\n",H.length-i+1);
+            OutRecordTable(H);
+    }
+        return OK;
+}
+
+int main()
+{
+	RecordTable RT,H;
+	printf("Ô­Ê¼Êı¾İ\n"); 
+	CreateRecordTable(RT);
+	CreateRecordTable(H);
+	OutRecordTable(RT);
+	printf("Ñ¡ÔñÅÅĞò\n");
+	SelectSort(RT);
+	OutRecordTable(RT);
+	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d  ¼ÇÂ¼½»»»´ÎÊı %d\n",ccount,mcount);
+	printf("¶ÑÅÅĞò\n");
+	HeapSort(H);
+	printf("¹Ø¼ü×Ö±È½Ï´ÎÊı %d  ¼ÇÂ¼½»»»´ÎÊı %d",ccount1,mcount1);
+	return OK;
+}
